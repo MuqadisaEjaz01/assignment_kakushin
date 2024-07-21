@@ -7,6 +7,7 @@ import Task from "../Models/Task.js";
 const addTask = async (req, res) => {
   try {
     const { title, description, status, dueDate } = req.body;
+    console.log(title)
 
     const found = await Task.findOne({ title });
     if (found) {
@@ -36,8 +37,7 @@ const addTask = async (req, res) => {
 //*******************Get All Tasks****************************** */
   const getTask = async (req, res) => {
     try {
-        const tasks = await Task.find({ });
-        
+        const tasks = await Task.find({ });  
         res.status(200).json({tasks});
     } catch (error) {
       console.error(error);
@@ -51,7 +51,7 @@ const addTask = async (req, res) => {
 
         const { title } = req.params;
         const status=req.body.status
-
+        console.log(status)
         const allowedStatus = ['pending', 'in progress', 'completed'];
         if (!allowedStatus.includes(status)) {
           return res.status(400).json({ message: 'Not correct status' });
@@ -79,6 +79,7 @@ const addTask = async (req, res) => {
   const deleteTask = async (req, res) => {
     try {
       const { title } = req.params;
+      console.log(title)
       const task = await Task.findOneAndDelete({ title });
   
       if (!task) {
